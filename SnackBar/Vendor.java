@@ -10,11 +10,12 @@ public class Vendor
 {
     // Fields:
 
-    private int price;
+    private final int price;
     private int stock;
     private int deposit;
     private int change;
     //make a private static double variable called totalSales that has an initial value of 0
+    private static double totalSales = 0;
 
 
     /**
@@ -25,17 +26,20 @@ public class Vendor
     public Vendor(int price, int stock)
     {
         //You need to complete this using this. notation
+        this.price = price;
+        this.stock = stock;
     }
 
     /**
      * Sets the quantity of items in stock.
-     * @param qty number of items to place in stock (int)
+     * @param stock number of items to place in stock (int)
      */
 
 
     public void setStock(int stock)
     {
         //You need to complete this using this. notation
+        this.stock = stock;
     }
 
     /**
@@ -45,16 +49,18 @@ public class Vendor
     public int getStock()
     {
         //complete this
+        return stock;
     }
 
     /**
      * Adds a specified amount (in cents) to the
      * deposited amount.
-     * @param number of cents to add to the deposit (int)
+     * @param d of cents to add to the deposit (int)
      */
     public void addMoney(int d)
     {
         //You need to complete this using mutator
+        deposit += d;
     }
 
     /**
@@ -78,6 +84,18 @@ public class Vendor
     public boolean makeSale()
     {
         //create the makesale method
+        if(stock > 0 && deposit >= price) {
+            stock--;
+            deposit -= price;
+            change += deposit;
+            deposit = 0;
+            totalSales++;
+            return true;
+
+        }
+        change += deposit;
+        deposit = 0;
+        return false;
     }
 
     /**
@@ -98,11 +116,9 @@ public class Vendor
         /*
         note that the coin class has a .getQuarters(), a .getDimes() etc etc (use the coin class!)
         */
-        
+        Coins c = new Coins(change);
 
-        String changeString="";
-
-        return changeString;
+        return "%d Quarters, %d Dimes, %d Nickles, %d Pennies".formatted(c.getQuarters(), c.getDimes(), c.getNickles(), c.getPennies());
     }
     
     /**
@@ -114,5 +130,10 @@ public class Vendor
     public static double getTotalSales()
     {
         //complete this
+        int temp = (int) totalSales;
+        totalSales = 0;
+        return temp;
+
+
     }
 }
