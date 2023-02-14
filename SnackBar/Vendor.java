@@ -89,7 +89,7 @@ public class Vendor
             deposit -= price;
             change += deposit;
             deposit = 0;
-            totalSales++;
+            totalSales+=price;
             return true;
 
         }
@@ -130,7 +130,7 @@ public class Vendor
     public static double getTotalSales()
     {
         //complete this
-        int temp = (int) totalSales;
+        double temp = totalSales;
         totalSales = 0;
         return temp;
 
